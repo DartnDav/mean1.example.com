@@ -18,7 +18,15 @@ var Users = new Schema({
     last_name: String,
     admin: {
         type: Boolean,
-        default: false
+        default: false,
+        created: {
+            type: Date,
+            default: Date.now
+        },
+        modified: {
+            type: Date,
+            default: Date.now
+        }
     }
 });
 
