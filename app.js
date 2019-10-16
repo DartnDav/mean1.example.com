@@ -14,7 +14,8 @@ var Users = require('./models/users');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apiUsersRouter = require('./routes/api/users');
-
+//~line 16
+var apiAuthRouter = require('./routes/api/auth');
 var app = express();
 
 var config = require('./config.dev');
@@ -71,6 +72,9 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (user, done) {
   done(null, user);
 });
+
+//~line 74
+app.use('/api/auth', apiAuthRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
