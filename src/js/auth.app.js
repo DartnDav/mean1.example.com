@@ -110,8 +110,20 @@ var authApp = (function () {
 
   return {
     load: function () {
-      validate.registrationForm();
-      postRequest('registrationForm', '/api/auth/register');
+
+      switch (window.location.hash) {
+        case '#register':
+          registrationForm();
+          postRequest('registrationForm', '/api/auth/register');
+          validate.registrationForm();
+          break;
+
+        default:
+          loginForm();
+          postRequest('loginForm', '/api/auth/login');
+          break;
+      }
+
     }
   }
 
@@ -144,3 +156,7 @@ var validate = (function () {
 
 })();
 authApp.load();
+
+window.addEventListener("hashchange", function () {
+  authApp.load();
+});
