@@ -26,7 +26,6 @@ var authApp = (function () {
     app.innerHTML = form;
   }
 
-  //~line 29
   function registrationForm() {
     var app = document.getElementById('app');
 
@@ -77,7 +76,6 @@ var authApp = (function () {
     app.innerHTML = form;
   }
 
-  //~line 29
   function postRequest(formId, url) {
     let form = document.getElementById(formId);
     form.addEventListener('submit', function (e) {
@@ -101,7 +99,6 @@ var authApp = (function () {
       xhr.send(JSON.stringify(object));
       xhr.onload = function () {
         let data = JSON.parse(xhr.response);
-        //~line 52
         if (data.success === true) {
           window.location.href = '/';
         } else {
