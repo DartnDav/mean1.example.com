@@ -110,7 +110,7 @@ var authApp = (function () {
 
   return {
     load: function () {
-      registrationForm();
+      validate.registrationForm();
       postRequest('registrationForm', '/api/auth/register');
     }
   }
