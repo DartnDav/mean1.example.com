@@ -72,16 +72,18 @@ passport.serializeUser(function (user, done) {
   });
 });
 
+app.use(function (req, res, next) {
+  res.locals.session = req.session;
+  next();
+});
+
 passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
-//~line 74
+//~line 74s
 app.use('/auth', authRouter);
-
-//~line 74
 app.use('/api/auth', apiAuthRouter);
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
