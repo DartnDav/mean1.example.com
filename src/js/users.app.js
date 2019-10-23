@@ -108,7 +108,7 @@ var usersApp = (function () {
         `;
 
         app.innerHTML = form;
-        processRequest('createUser', '/api/users', 'POST');
+        // processRequest('createUser', '/api/users', 'POST');
     }
 
     function viewUser(id) {
@@ -248,7 +248,7 @@ var usersApp = (function () {
             switch (hashArray[0]) {
                 case '#create':
                     createUser();
-                    // processRequest('createUser', '/api/users', 'POST');
+                    processRequest('createUser', '/api/users', 'POST');
                     break;
 
                 case '#view':
