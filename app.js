@@ -9,9 +9,12 @@ var MongoStore = require('connect-mongo')(session);
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var Users = require('./models/users');
+var Articles = require('./models/articles');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var articlesRouter = require('./routes/articles');
 var apiUsersRouter = require('./routes/api/users');
+var apiArticlesRouter = require('./routes/api/articles');
 var authRouter = require('./routes/auth');
 
 //~line 16
@@ -87,7 +90,8 @@ app.use(function (req, res, next) {
   //exact matches.
   var whitelist = [
     '/',
-    '/auth'
+    '/auth',
+    '/articles'
   ];
 
   //req.url holds the current URL
@@ -126,7 +130,9 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/articles', articlesRouter);
 app.use('/api/users', apiUsersRouter);
+app.use('/api/articles', apiArticlesRouter);
 app.use('/auth', authRouter);
 app.use('/api/auth', apiAuthRouter);
 // catch 404 and forward to error handler
