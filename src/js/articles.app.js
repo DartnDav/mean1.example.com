@@ -25,10 +25,10 @@ var articlesApp = (function () {
       for (let i = 0; i < articles.length; i++) {
         rows = rows + `<tr>
                 <td>
-                  <a href="#view-${articles[i]['_id']}">${users[i]['last_name']}, ${users[i]['first_name']}</a>
+                  <a href="#view-${articles[i]['_id']}">${articles[i]['title']}</a>
                 </td>
-                <td>${users[i]['username']}</td>
-                <td>${users[i]['email']}</td>
+                <td>${articles[i]['description']}</td>
+                <td>${articles[i]['published']}</td>
               </tr>`;
       }
 
@@ -45,9 +45,9 @@ var articlesApp = (function () {
                 <table class="table table-striped table-hover table-bordered">
                   <thead>
                     <tr>
-                      <td>Name</td>
-                      <td>Username</td>
-                      <td>Email</td>
+                      <td>Title</td>
+                      <td>Description</td>
+                      <td>Published</td>
                     </tr>
                   </thead>
                   <tbody>${rows}</tbody>
@@ -72,33 +72,39 @@ var articlesApp = (function () {
                 </div>
               </div>
               <div class="card-body">
-              <form id="createUser" class="card-body">
+              <form id="createArticle" class="card-body">
                   <div id="formMsg" class="alert alert-danger text-center">Your form has errors</div>
       
                   <div class="row">
                     <div class="form-group col-md-6">
-                      <label for="first_name">First Name</label>
-                      <input type="text" id="first_name" name="first_name" class="form-control" required>
+                      <label for="title">Title</label>
+                      <input type="text" id="title" name="title" class="form-control" required>
                     </div>
       
                     <div class="form-group col-md-6">
-                      <label for="last_name">Last Name</label>
-                      <input type="text" id="last_name" name="last_name" class="form-control" required>
+                      <label for="published">Published On</label>
+                      <input type="text" id="published" name="published" class="form-control" required>
                     </div>
                   </div>
-      
+
                   <div class="row">
-                    <div class="form-group col-md-6">
-                      <label for="username">Username</label>
-                      <input type="text" id="username" name="username" class="form-control" required>
+                    <div class="form-group col-md">
+                      <label for="body">Body</label>
+                      <textarea id="body" name="body" class="form-control" rows="6" required></textarea>
                     </div>
-      
+                    </div>
                     <div class="form-group col-md-6">
-                      <label for="email">Email</label>
-                      <input type="email" id="email" name="email" class="form-control" required>
+                      <label for="description">Description</label>
+                      <input type="text" id="description" name="description" class="form-control" required>
                     </div>
                   </div>
-      
+
+                  <div class="form-group col-md-6">
+                  <label for="keywords">Keywords</label>
+                  <input type="text" id="keywords" name="keywords" class="form-control" required>
+                </div>
+              </div>
+
                   <div class="text-right">
                     <input type="submit" value="Submit" class="btn btn-lg btn-primary btn-sm-block">
                   </div>
@@ -131,14 +137,14 @@ var articlesApp = (function () {
 
       card = `<div class="card">
             <div class="card-header clearfix">
-              <h2 class="h3 float-left">${data.user.first_name} ${data.user.last_name}</h2>
+              <h2 class="h3 float-left">${data.article.title}</h2>
               <div class="float-right">
-                <a href="#edit-${data.user._id}" class="btn btn-primary">Edit</a>
+                <a href="#edit-${data.article._id}" class="btn btn-primary">Edit</a>
               </div>
             </div>
             <div class="card-body">
-              <div>${data.user.username}</div>
-              <div>${data.user.email}</div>
+              <div>${data.article.body}</div>
+              <div>${data.article.keywords}</div>
             </div>
           </div>`;
 
@@ -162,39 +168,51 @@ var articlesApp = (function () {
     xhr.onload = function () {
       let app = document.getElementById('app');
       let data = JSON.parse(xhr.response);
+      var date = Date(data.post.published);
+      console.log(date);
 
       var form = `
             <div class="card">
               <div class="card-header clearfix">
-                <h2 class="h3 float-left">Edit</h2>
+                <h2 class="h3 float-left">Edit Article</h2>
                 <div class="float-right">
                   <a href="#" class="btn btn-primary">Cancel</a>
                 </div>
               </div>
               <div class="card-body">
-                <form id="editUser" class="card-body">
+                <form id="editArticle" class="card-body">
                   <input type="hidden" id="_id" name="_id" value="${data.article._id}">
                   <div id="formMsg" class="alert alert-danger text-center">Your form has errors</div>
                   <div class="row">
                     <div class="form-group col-md-6">
-                      <label for="first_name">First Name</label>
-                      <input type="text" id="first_name" name="first_name" class="form-control" value="${data.user.first_name}" required>
+                      <label for="title">Title</label>
+                      <input type="text" id="title" name="title" class="form-control" value="${data.article.title}" required>
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="last_name">Last Name</label>
-                      <input type="text" id="last_name" name="last_name" class="form-control" value="${data.user.last_name}" required>
+                      <label for="published">Published On</label>
+                      <input type="text" id="published" name="published" class="form-control" value="${date}" required>
                     </div>
                   </div>
                   <div class="row">
                     <div class="form-group col-md-6">
-                      <label for="username">Username</label>
-                      <input type="text" id="username" name="username" class="form-control" value="${data.user.username}" required>
+                      <label for="body">Body</label>
+                      <textarea id="body" name="body" class="form-control" value="${data.article.body}" required>
                     </div>
                     <div class="form-group col-md-6">
-                      <label for="email">Email</label>
-                      <input type="email" id="email" name="email" class="form-control" value="${data.user.email}" required>
+                      <label for="description">Description</label>
+                      <input type="text" id="description" name="description" class="form-control" value="${data.article.description}" required>
                     </div>
+                    <div class="form-group col-md-6">
+                    <label for="keywords">Keywords</label>
+                    <input type="text" id="keywords" name="keywords" class="form-control" value="${data.article.keywords}" required>
                   </div>
+                  </div>
+                  <div>
+                  <input type="hidden" id="_id" name="_id" class="form-control" value="${data.article._id}" required>
+                </div>
+                <div>
+                  <input type="hidden" id="created" name="created" class="form-control" value="${data.article.created}" required>
+                </div>
                   <div class="text-right">
                     <input type="submit" value="Submit" class="btn btn-lg btn-primary btn-sm-block">
                   </div>
@@ -235,7 +253,7 @@ var articlesApp = (function () {
       xhr.onload = function () {
         let data = JSON.parse(xhr.response);
         if (data.success === true) {
-          window.location.href = '/';
+          window.location.href = '/articles/app';
         } else {
           document.getElementById('formMsg').style.display = 'block';
         }
@@ -263,21 +281,20 @@ var articlesApp = (function () {
 
       card = `<div class="card bg-transparent border-danger text-danger bg-danger">
           <div class="card-header bg-transparent border-danger">
-            <h2 class="h3 text-center">Your About to Delete a Article</h2>
+            <h2 class="h3 text-center">Your About to delete this article</h2>
           </div>
           <div class="card-body text-center">
             <div>
               Are you sure you want to delete
-              <strong>${data.user.first_name} ${data.user.last_name}</strong>
+              <strong>${data.article.title}</strong>
             </div>
     
-            <div>Username: <strong>${data.user.username}</strong></div>
-            <div>Email: <strong>${data.user.email}</strong></div>
+            <div>Description: <strong>${data.article.description}</strong></div>
     
             <div class="text-center">
               <br>
-              <a onclick="usersApp.deleteUser('${data.article._id}');" class="btn btn-lg btn-danger text-white">
-              Yes delete ${data.user.username}
+              <a onclick="articlesApp.deleteArticle('${data.article._id}');" class="btn btn-lg btn-danger text-white">
+              Yes delete ${data.article.description}
             </a>
             </div>
           </div>
@@ -346,8 +363,8 @@ var articlesApp = (function () {
 
 })();
 
-usersApp.load();
+articlesApp.load();
 
 window.addEventListener("hashchange", function () {
-  usersApp.load();
+  articlesApp.load();
 });
