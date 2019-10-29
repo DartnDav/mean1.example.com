@@ -73,8 +73,8 @@ var articlesApp = (function () {
               </div>
               <div class="card-body">
               <form id="createArticle" class="card-body">
-                  <div id="formMsg" class="alert alert-danger text-center">Your form has errors</div>
-      
+                <div id="formMsg" class="alert alert-danger text-center">Your form has errors</div>
+
                   <div class="row">
                     <div class="form-group col-md-6">
                       <label for="title">Title</label>
@@ -83,7 +83,7 @@ var articlesApp = (function () {
       
                     <div class="form-group col-md-6">
                       <label for="published">Published On</label>
-                      <input type="text" id="published" name="published" class="form-control" required>
+                      <input type="datetime-local" id="published" name="published" class="form-control" required>
                     </div>
                   </div>
 
@@ -91,19 +91,20 @@ var articlesApp = (function () {
                     <div class="form-group col-md">
                       <label for="body">Body</label>
                       <textarea id="body" name="body" class="form-control" rows="6" required></textarea>
+                      </div>
                     </div>
-                    </div>
+
+                  <div class="row">
                     <div class="form-group col-md-6">
                       <label for="description">Description</label>
                       <input type="text" id="description" name="description" class="form-control" required>
                     </div>
-                  </div>
 
-                  <div class="form-group col-md-6">
-                  <label for="keywords">Keywords</label>
-                  <input type="text" id="keywords" name="keywords" class="form-control" required>
+                    <div class="form-group col-md-6">
+                      <label for="keywords">Keywords</label>
+                      <input type="text" id="keywords" name="keywords" class="form-control" required>
+                    </div>
                 </div>
-              </div>
 
                   <div class="text-right">
                     <input type="submit" value="Submit" class="btn btn-lg btn-primary btn-sm-block">
@@ -168,7 +169,7 @@ var articlesApp = (function () {
     xhr.onload = function () {
       let app = document.getElementById('app');
       let data = JSON.parse(xhr.response);
-      var date = Date(data.post.published);
+      var date = Date(data.article.published);
       console.log(date);
 
       var form = `
