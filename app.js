@@ -106,7 +106,8 @@ app.use(function (req, res, next) {
   //Allow access to dynamic endpoints
   var subs = [
     '/public/',
-    '/api/auth/'
+    '/api/auth/',
+    '/articles/'
   ];
 
   //The query string provides a partial URL match beginning

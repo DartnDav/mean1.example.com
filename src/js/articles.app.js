@@ -184,6 +184,7 @@ var articlesApp = (function () {
                 <form id="editArticle" class="card-body">
                   <input type="hidden" id="_id" name="_id" value="${data.article._id}">
                   <div id="formMsg" class="alert alert-danger text-center">Your form has errors</div>
+
                   <div class="row">
                     <div class="form-group col-md-6">
                       <label for="title">Title</label>
@@ -191,13 +192,14 @@ var articlesApp = (function () {
                     </div>
                     <div class="form-group col-md-6">
                       <label for="published">Published On</label>
-                      <input type="text" id="published" name="published" class="form-control" value="${date}" required>
+                      <input type="datetime-local" id="published" name="published" class="form-control" value="${date}" required>
                     </div>
                   </div>
+
                   <div class="row">
                     <div class="form-group col-md-6">
                       <label for="body">Body</label>
-                      <textarea id="body" name="body" class="form-control" value="${data.article.body}" required>
+                      <textarea id="body" name="body" class="form-control" value="${data.article.body}" required></textarea>
                     </div>
                     <div class="form-group col-md-6">
                       <label for="description">Description</label>

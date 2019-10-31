@@ -1,13 +1,13 @@
 extends ../layout
 
 block content
-  h1 Blog
-  div#app
+  h1 Articles
+  //- div#app
   for article in articles
-
-    //- div.article
-    //-   a(href='articles/' +   article.slug)
-    //-     h2= article.title
-    //-     div!= article.description
+    hr
+    div.article
+      a(href='/articles/view/' +   article.slug)
+        h2= article.title
+        div!= article.description
 
   script(src='/dist/js/articles.app.min.js')
